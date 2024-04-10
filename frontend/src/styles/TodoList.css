@@ -1,0 +1,35 @@
+.list {
+    padding: 5px 40px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.delete-button {
+	float: left;
+}
+
+.grid-container {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 20px;
+}
+
+.left-panel {
+	display: flex;
+	flex-direction: column; /* Stack children vertically */
+	justify-content: center; /* Center items vertically */
+}
+
+.button-container {
+	display: flex;
+	flex-direction: column; /* Stack buttons vertically */
+	align-items: stretch;
+	gap: 10px; /* Gap between buttons */
+    padding: 25px 0px;
+}
+
+.right-panel {
+    padding: 0px 40px;
+}
+
+.complex-component {
+}
