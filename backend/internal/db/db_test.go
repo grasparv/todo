@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 	"testing"
+	"todolist/internal/conv"
 	"todolist/internal/db"
 
 	"github.com/gofrs/uuid"
@@ -20,14 +21,6 @@ func TestDB(t *testing.T) {
 	require.NoError(t, err)
 	defer d.Close(ctx)
 
-	stringp := func(s string) *string {
-		return &s
-	}
-
-	boolp := func(b bool) *bool {
-		return &b
-	}
-
 	ids := make([]*uuid.UUID, 5)
 	for i := 0; i < 5; i++ {
 		id := uuid.Must(uuid.NewV4())
@@ -36,33 +29,33 @@ func TestDB(t *testing.T) {
 
 	a := db.TodoList{
 		ID:    ids[0],
-		Owner: stringp("Jonas"),
-		Name:  stringp("Shopping list, Sunday"),
+		Owner: conv.Pointer("Jonas"),
+		Name:  conv.Pointer("Shopping list, Sunday"),
 		Items: []db.TodoItem{
 			{
 				ID:     ids[1],
-				Text:   stringp("Salad"),
-				Marked: boolp(false),
+				Text:   conv.Pointer("Salad"),
+				Marked: conv.Pointer(false),
 			},
 			{
 				ID:     ids[2],
-				Text:   stringp("Potatoes"),
-				Marked: boolp(true),
+				Text:   conv.Pointer("Potatoes"),
+				Marked: conv.Pointer(true),
 			},
 		},
 	}
 
 	b := db.TodoList{
 		ID:    ids[3],
-		Owner: stringp("Jonas"),
-		Name:  stringp("X"),
+		Owner: conv.Pointer("Jonas"),
+		Name:  conv.Pointer("X"),
 		Items: []db.TodoItem{},
 	}
 
 	c := db.TodoList{
 		ID:    ids[4],
-		Owner: stringp("Jonas"),
-		Name:  stringp("Y"),
+		Owner: conv.Pointer("Jonas"),
+		Name:  conv.Pointer("Y"),
 		Items: []db.TodoItem{},
 	}
 
@@ -85,7 +78,7 @@ func TestDB(t *testing.T) {
 	require.Equal(t, 2, len(lists))
 
 	ie := a.Items[0]
-	ie.Text = stringp("testie")
+	ie.Text = conv.Pointer("testie")
 	err = d.UpdateTodoItem(ctx, ie)
 	require.NoError(t, err)
 	lists, err = d.GetTodoLists(ctx)

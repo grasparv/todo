@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"os"
 	"todolist/internal/api"
+	"todolist/internal/conv"
 	"todolist/internal/db"
 
 	"github.com/gofrs/uuid"
@@ -52,28 +53,20 @@ func main() {
 			return
 		}
 
-		stringp := func(s string) *string {
-			return &s
-		}
-
-		boolp := func(b bool) *bool {
-			return &b
-		}
-
 		sample := db.TodoList{
 			ID:    &id,
-			Owner: stringp("Jonas"),
-			Name:  stringp("Shopping list, Sunday"),
+			Owner: conv.Pointer("Jonas"),
+			Name:  conv.Pointer("Shopping list, Sunday"),
 			Items: []db.TodoItem{
 				{
 					ID:     &ida,
-					Text:   stringp("Salad"),
-					Marked: boolp(false),
+					Text:   conv.Pointer("Salad"),
+					Marked: conv.Pointer(false),
 				},
 				{
 					ID:     &idb,
-					Text:   stringp("Potatoes"),
-					Marked: boolp(true),
+					Text:   conv.Pointer("Potatoes"),
+					Marked: conv.Pointer(true),
 				},
 			},
 		}
