@@ -160,7 +160,7 @@ func (a *api) handleNewList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	t.ID = id
-	for i, _ := range t.Items {
+	for i := range t.Items {
 		id, err = uuid.NewV4()
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
