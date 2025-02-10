@@ -39,12 +39,12 @@ func TestDB(t *testing.T) {
 		Owner: stringp("Jonas"),
 		Name:  stringp("Shopping list, Sunday"),
 		Items: []db.TodoItem{
-			db.TodoItem{
+			{
 				ID:     ids[1],
 				Text:   stringp("Salad"),
 				Marked: boolp(false),
 			},
-			db.TodoItem{
+			{
 				ID:     ids[2],
 				Text:   stringp("Potatoes"),
 				Marked: boolp(true),

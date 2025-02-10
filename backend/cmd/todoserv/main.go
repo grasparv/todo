@@ -65,12 +65,12 @@ func main() {
 			Owner: stringp("Jonas"),
 			Name:  stringp("Shopping list, Sunday"),
 			Items: []db.TodoItem{
-				db.TodoItem{
+				{
 					ID:     &ida,
 					Text:   stringp("Salad"),
 					Marked: boolp(false),
 				},
-				db.TodoItem{
+				{
 					ID:     &idb,
 					Text:   stringp("Potatoes"),
 					Marked: boolp(true),
