@@ -7,7 +7,7 @@ import { enableMapSet, produce } from 'immer';
 
 enableMapSet();
 
-const serviceUri = 'http://localhost:3000'
+const serviceUri = 'http://localhost:2000'
 
 interface IHomeProps {
     user: string | undefined;
