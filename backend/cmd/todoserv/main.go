@@ -21,14 +21,14 @@ func main() {
 
 	store, err := db.NewDB(ctx, db.Options{DSN: *path})
 	if err != nil {
-		logger.Error("failed to create database", err)
+		logger.Error("failed to create database", "error", err)
 		return
 	}
 	defer store.Close(ctx)
 
 	lists, err := store.GetTodoLists(ctx)
 	if err != nil {
-		logger.Error("failed to query database", err)
+		logger.Error("failed to query database", "error", err)
 		return
 	}
 
@@ -36,19 +36,19 @@ func main() {
 		// Add some sample data for the project
 		id, err := uuid.NewV4()
 		if err != nil {
-			logger.Error("failed to create sample data", err)
+			logger.Error("failed to create sample data", "error", err)
 			return
 		}
 
 		ida, err := uuid.NewV4()
 		if err != nil {
-			logger.Error("failed to create sample data", err)
+			logger.Error("failed to create sample data", "error", err)
 			return
 		}
 
 		idb, err := uuid.NewV4()
 		if err != nil {
-			logger.Error("failed to create sample data", err)
+			logger.Error("failed to create sample data", "error", err)
 			return
 		}
 
@@ -80,14 +80,14 @@ func main() {
 
 		err = store.AddTodoList(ctx, sample)
 		if err != nil {
-			logger.Error("failed to create sample data", err)
+			logger.Error("failed to create sample data", "error", err)
 			return
 		}
 	}
 
 	lists, err = store.GetTodoLists(ctx)
 	if err != nil {
-		logger.Error("failed to get todo lists", err)
+		logger.Error("failed to get todo lists", "error", err)
 		return
 	}
 

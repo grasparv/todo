@@ -62,7 +62,7 @@ func (s *Session) dispatch(tearDown func()) {
 			s.logger.Debug(strings.Trim(message, "\n"))
 			_, err := fmt.Fprint(s.writer, message)
 			if err != nil {
-				s.logger.Debug("failed to write to session", err)
+				s.logger.Debug("failed to write to session", "error", err)
 				s.cancel(err)
 				return
 			}

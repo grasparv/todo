@@ -102,7 +102,7 @@ func (a *api) handleEvents(w http.ResponseWriter, r *http.Request) {
 
 	todos, err := a.store.GetTodoLists(r.Context())
 	if err != nil {
-		a.logger.Error("failed to get todo lists", err)
+		a.logger.Error("failed to get todo lists", "error", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -119,7 +119,7 @@ func (a *api) handleEvents(w http.ResponseWriter, r *http.Request) {
 
 	session, err := a.server.NewSession(w, r)
 	if err != nil {
-		a.logger.Error("failed to make SSE session", err)
+		a.logger.Error("failed to make SSE session", "error", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -128,7 +128,7 @@ func (a *api) handleEvents(w http.ResponseWriter, r *http.Request) {
 	for _, event := range events {
 		data, err := json.Marshal(event)
 		if err != nil {
-			a.logger.Error("failed to marshal event", err)
+			a.logger.Error("failed to marshal event", "error", err)
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
@@ -180,7 +180,7 @@ func (a *api) handleNewList(w http.ResponseWriter, r *http.Request) {
 
 	err = a.store.AddTodoList(r.Context(), t.Record())
 	if err != nil {
-		a.logger.Error("failed to add to store", err)
+		a.logger.Error("failed to add to store", "error", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -190,7 +190,7 @@ func (a *api) handleNewList(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		a.server.Broadcast(data)
 	} else {
-		a.logger.Error("unable to broadcast event", err)
+		a.logger.Error("unable to broadcast event", "error", err)
 	}
 }
 
@@ -210,7 +210,7 @@ func (a *api) handleDeleteList(w http.ResponseWriter, r *http.Request) {
 
 	err = a.store.RemoveTodoList(ctx, id)
 	if err != nil {
-		a.logger.Error("failed to remove from store", err)
+		a.logger.Error("failed to remove from store", "error", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -222,7 +222,7 @@ func (a *api) handleDeleteList(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		a.server.Broadcast(data)
 	} else {
-		a.logger.Error("unable to broadcast event", err)
+		a.logger.Error("unable to broadcast event", "error", err)
 	}
 }
 
@@ -254,7 +254,7 @@ func (a *api) handleAddItem(w http.ResponseWriter, r *http.Request) {
 	}
 	err = a.store.AddTodoItem(ctx, ulistID, todo.Record())
 	if err != nil {
-		a.logger.Error("failed to add todo item", err)
+		a.logger.Error("failed to add todo item", "error", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -264,7 +264,7 @@ func (a *api) handleAddItem(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		a.server.Broadcast(data)
 	} else {
-		a.logger.Error("unable to broadcast event", err)
+		a.logger.Error("unable to broadcast event", "error", err)
 	}
 }
 
@@ -286,7 +286,7 @@ func (a *api) handleUpdateItem(w http.ResponseWriter, r *http.Request) {
 
 	err = a.store.UpdateTodoItem(ctx, t.Record())
 	if err != nil {
-		a.logger.Error("failed to update todo item", err)
+		a.logger.Error("failed to update todo item", "error", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -296,7 +296,7 @@ func (a *api) handleUpdateItem(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		a.server.Broadcast(data)
 	} else {
-		a.logger.Error("unable to broadcast event", err)
+		a.logger.Error("unable to broadcast event", "error", err)
 	}
 }
 
@@ -328,7 +328,7 @@ func (a *api) handleDeleteItem(w http.ResponseWriter, r *http.Request) {
 
 	err = a.store.DeleteTodoItem(ctx, uitemID)
 	if err != nil {
-		a.logger.Error("failed to delete todo item", err)
+		a.logger.Error("failed to delete todo item", "error", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -338,6 +338,6 @@ func (a *api) handleDeleteItem(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		a.server.Broadcast(data)
 	} else {
-		a.logger.Error("unable to broadcast event", err)
+		a.logger.Error("unable to broadcast event", "error", err)
 	}
 }
