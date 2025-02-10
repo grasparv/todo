@@ -1,4 +1,4 @@
-FROM golang:1.22 AS builder
+FROM golang:1.23 AS builder
 RUN mkdir /tmp/build
 COPY . /tmp/build
 RUN cd /tmp/build && CGO_ENABLED=0 go build ./cmd/todoserv
